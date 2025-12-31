@@ -183,9 +183,10 @@ flowchart LR
     B --> C[Event Grid Trigger]
     C --> D[Azure Function - Data Clean & Validate]
     D --> E[Azure SQL Database]
-    E --> F[Executive Dashboard]
-    E --> G[Risk & Delinquency Reports]
-    E --> H[Underwriting Decision Dashboard]
+    E --> F[Azure Function - Search]
+    F --> G[Executive Dashboard]
+    F --> H[Risk & Delinquency Reports]
+    F --> I[Underwriting Decision Dashboard]
 ```
 
 ---
