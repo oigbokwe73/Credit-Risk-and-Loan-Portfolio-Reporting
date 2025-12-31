@@ -207,14 +207,3 @@ flowchart LR
 * Loan Trend & Forecasting (Power BI forecasting models)
 
 ---
-
-If you'd like, I can now also generate:
-
-✅ Power BI DAX measures
-✅ SQL table schema
-✅ Azure Synapse pipeline diagram
-✅ Python/Function code to compute risk score
-✅ A full business requirements document (BRD)
-✅ A dashboard mockup in HTML/Bootstrap
-
-Just tell me what you want next!
