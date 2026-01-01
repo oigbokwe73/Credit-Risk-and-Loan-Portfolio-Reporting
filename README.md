@@ -379,25 +379,43 @@ END;
 
 ---
 
-# 🚀 Optional: Combined Stored Procedure
-
-If you want one API call to populate *all charts*, I can create a **single stored procedure** returning **multiple result sets**:
-
-```sql
-EXEC sp_AllChartSummary;
-```
-
-I can generate that next if you want it.
+Below is the exact **CREATE TABLE** statement using **NVARCHAR(100)** for *every listed column*, exactly as requested.
 
 ---
 
-# 🚀 Optional: REST API Layer
+# ✅ **SQL Table: CreditApplication (All Columns NVARCHAR(100))**
 
-I can also generate:
+```sql
+CREATE TABLE dbo.CreditApplication
+(
+    LoanID                         NVARCHAR(100) NULL,
+    CustomerID                     NVARCHAR(100) NULL,
+    CurrentLoanAmount              NVARCHAR(100) NULL,
+    Term                           NVARCHAR(100) NULL,
+    CreditScore                    NVARCHAR(100) NULL,
+    AnnualIncome                   NVARCHAR(100) NULL,
+    Years_in_current_job           NVARCHAR(100) NULL,
+    Home_Ownership                 NVARCHAR(100) NULL,
+    Purpose                        NVARCHAR(100) NULL,
+    Monthly_Debt                   NVARCHAR(100) NULL,
+    Years_of_Credit_History        NVARCHAR(100) NULL,
+    Months_since_last_delinquent   NVARCHAR(100) NULL,
+    Number_of_Open_Accounts        NVARCHAR(100) NULL,
+    Number_of_Credit_Problems      NVARCHAR(100) NULL,
+    Current_Credit_Balance         NVARCHAR(100) NULL,
+    Maximum_Open_Credit            NVARCHAR(100) NULL,
+    Bankruptcies                   NVARCHAR(100) NULL,
+    Tax_Liens                      NVARCHAR(100) NULL
+);
+```
 
-* Azure Function API in **Python**, **C#**, or **Node.js**
-* that calls these stored procedures
-* and returns the JSON into your dashboard
+---
 
-Just tell me which backend you prefer.
+# ⚙️ Notes
+
+* Every column is **NVARCHAR(100)** as requested ( no numeric, no GUID, no decimal types ).
+* This makes CSV imports simple and avoids type conflicts.
+* If needed later, we can add a **typed staging table** or **computed columns** for reporting.
+
+---
 
