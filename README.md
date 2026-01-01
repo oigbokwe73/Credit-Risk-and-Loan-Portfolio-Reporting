@@ -208,3 +208,196 @@ flowchart LR
 * Loan Trend & Forecasting (Power BI forecasting models)
 
 ---
+
+Below are **four SQL Server stored procedures** that compute the chart data directly from your **credit_test.csv–based SQL table**.
+These procedures return the aggregated result sets needed by your REST API endpoints to populate the dashboard charts.
+
+---
+
+# ✅ **Assumptions**
+
+Your table name:
+
+```sql
+CreditApplication
+```
+
+Columns (as seen in your CSV):
+
+* CurrentLoanAmount
+* Term
+* Purpose
+* CreditScore
+* Home_Ownership
+* … (other fields)
+
+---
+
+# ✅ 1️⃣ Stored Procedure — **Loan Amount by Term**
+
+Returns total dollar amount of loans grouped by **Short Term** and **Long Term**.
+
+```sql
+CREATE OR ALTER PROCEDURE sp_LoanTermSummary
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        Term AS LoanTerm,
+        SUM(CurrentLoanAmount) AS TotalLoanAmount
+    FROM CreditApplication
+    GROUP BY Term
+    ORDER BY TotalLoanAmount DESC;
+END;
+```
+
+### Sample Output
+
+| LoanTerm   | TotalLoanAmount |
+| ---------- | --------------- |
+| Short Term | 3,200,000       |
+| Long Term  | 1,400,000       |
+
+---
+
+# ✅ 2️⃣ Stored Procedure — **Loan Purpose Distribution**
+
+Returns counts of each loan purpose and optional percentages.
+
+```sql
+CREATE OR ALTER PROCEDURE sp_LoanPurposeSummary
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        Purpose,
+        COUNT(*) AS TotalApplications,
+        CAST(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER() AS DECIMAL(5,2)) 
+            AS PercentageShare
+    FROM CreditApplication
+    GROUP BY Purpose
+    ORDER BY TotalApplications DESC;
+END;
+```
+
+### Sample Output
+
+| Purpose            | TotalApplications | PercentageShare |
+| ------------------ | ----------------- | --------------- |
+| Debt Consolidation | 480               | 48.00           |
+| Personal           | 220               | 22.00           |
+| Home Improvement   | 150               | 15.00           |
+| Other              | 150               | 15.00           |
+
+---
+
+# ✅ 3️⃣ Stored Procedure — **Credit Score Distribution (Histogram Groups)**
+
+This creates buckets such as:
+
+* 500–579
+* 580–619
+* 620–659
+* 660–719
+* 720–780
+
+You can adjust buckets as needed.
+
+```sql
+CREATE OR ALTER PROCEDURE sp_CreditScoreSummary
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        CASE 
+            WHEN CreditScore BETWEEN 500 AND 579 THEN '500-579'
+            WHEN CreditScore BETWEEN 580 AND 619 THEN '580-619'
+            WHEN CreditScore BETWEEN 620 AND 659 THEN '620-659'
+            WHEN CreditScore BETWEEN 660 AND 719 THEN '660-719'
+            WHEN CreditScore BETWEEN 720 AND 780 THEN '720-780'
+            ELSE 'Unknown'
+        END AS CreditScoreRange,
+        COUNT(*) AS TotalCustomers
+    FROM CreditApplication
+    GROUP BY 
+        CASE 
+            WHEN CreditScore BETWEEN 500 AND 579 THEN '500-579'
+            WHEN CreditScore BETWEEN 580 AND 619 THEN '580-619'
+            WHEN CreditScore BETWEEN 620 AND 659 THEN '620-659'
+            WHEN CreditScore BETWEEN 660 AND 719 THEN '660-719'
+            WHEN CreditScore BETWEEN 720 AND 780 THEN '720-780'
+            ELSE 'Unknown'
+        END
+    ORDER BY CreditScoreRange;
+END;
+```
+
+### Sample Output
+
+| CreditScoreRange | TotalCustomers |
+| ---------------- | -------------- |
+| 500-579          | 3              |
+| 580-619          | 8              |
+| 620-659          | 15             |
+| 660-719          | 32             |
+| 720-780          | 42             |
+
+---
+
+# ✅ 4️⃣ Stored Procedure — **Home Ownership Summary**
+
+Returns counts of each home ownership category.
+
+```sql
+CREATE OR ALTER PROCEDURE sp_HomeOwnershipSummary
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    SELECT 
+        Home_Ownership,
+        COUNT(*) AS TotalCustomers,
+        CAST(COUNT(*) * 100.0 / SUM(COUNT(*)) OVER() AS DECIMAL(5,2))
+            AS PercentageShare
+    FROM CreditApplication
+    GROUP BY Home_Ownership
+    ORDER BY TotalCustomers DESC;
+END;
+```
+
+### Sample Output
+
+| Home_Ownership | TotalCustomers | PercentageShare |
+| -------------- | -------------- | --------------- |
+| Home Mortgage  | 65             | 65.00           |
+| Rent           | 22             | 22.00           |
+| Own            | 10             | 10.00           |
+| Other          | 3              | 3.00            |
+
+---
+
+# 🚀 Optional: Combined Stored Procedure
+
+If you want one API call to populate *all charts*, I can create a **single stored procedure** returning **multiple result sets**:
+
+```sql
+EXEC sp_AllChartSummary;
+```
+
+I can generate that next if you want it.
+
+---
+
+# 🚀 Optional: REST API Layer
+
+I can also generate:
+
+* Azure Function API in **Python**, **C#**, or **Node.js**
+* that calls these stored procedures
+* and returns the JSON into your dashboard
+
+Just tell me which backend you prefer.
+
