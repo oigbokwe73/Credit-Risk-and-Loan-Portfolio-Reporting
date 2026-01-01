@@ -232,6 +232,32 @@ Columns (as seen in your CSV):
 * … (other fields)
 
 ---
+# ✅ **SQL Table: CreditApplication (All Columns NVARCHAR(100))**
+
+```sql
+CREATE TABLE dbo.CreditApplication
+(
+    LoanID                         NVARCHAR(100) NULL,
+    CustomerID                     NVARCHAR(100) NULL,
+    CurrentLoanAmount              NVARCHAR(100) NULL,
+    Term                           NVARCHAR(100) NULL,
+    CreditScore                    NVARCHAR(100) NULL,
+    AnnualIncome                   NVARCHAR(100) NULL,
+    Years_in_current_job           NVARCHAR(100) NULL,
+    Home_Ownership                 NVARCHAR(100) NULL,
+    Purpose                        NVARCHAR(100) NULL,
+    Monthly_Debt                   NVARCHAR(100) NULL,
+    Years_of_Credit_History        NVARCHAR(100) NULL,
+    Months_since_last_delinquent   NVARCHAR(100) NULL,
+    Number_of_Open_Accounts        NVARCHAR(100) NULL,
+    Number_of_Credit_Problems      NVARCHAR(100) NULL,
+    Current_Credit_Balance         NVARCHAR(100) NULL,
+    Maximum_Open_Credit            NVARCHAR(100) NULL,
+    Bankruptcies                   NVARCHAR(100) NULL,
+    Tax_Liens                      NVARCHAR(100) NULL
+);
+```
+
 
 # ✅ 1️⃣ Stored Procedure — **Loan Amount by Term**
 
@@ -383,31 +409,6 @@ Below is the exact **CREATE TABLE** statement using **NVARCHAR(100)** for *every
 
 ---
 
-# ✅ **SQL Table: CreditApplication (All Columns NVARCHAR(100))**
-
-```sql
-CREATE TABLE dbo.CreditApplication
-(
-    LoanID                         NVARCHAR(100) NULL,
-    CustomerID                     NVARCHAR(100) NULL,
-    CurrentLoanAmount              NVARCHAR(100) NULL,
-    Term                           NVARCHAR(100) NULL,
-    CreditScore                    NVARCHAR(100) NULL,
-    AnnualIncome                   NVARCHAR(100) NULL,
-    Years_in_current_job           NVARCHAR(100) NULL,
-    Home_Ownership                 NVARCHAR(100) NULL,
-    Purpose                        NVARCHAR(100) NULL,
-    Monthly_Debt                   NVARCHAR(100) NULL,
-    Years_of_Credit_History        NVARCHAR(100) NULL,
-    Months_since_last_delinquent   NVARCHAR(100) NULL,
-    Number_of_Open_Accounts        NVARCHAR(100) NULL,
-    Number_of_Credit_Problems      NVARCHAR(100) NULL,
-    Current_Credit_Balance         NVARCHAR(100) NULL,
-    Maximum_Open_Credit            NVARCHAR(100) NULL,
-    Bankruptcies                   NVARCHAR(100) NULL,
-    Tax_Liens                      NVARCHAR(100) NULL
-);
-```
 
 ---
 
