@@ -287,7 +287,7 @@ END;
 Returns counts of each loan purpose and optional percentages.
 
 ```sql
-CREATE OR ALTER PROCEDURE sp_LoanPurposeSummary
+CREATE   PROCEDURE sp_LoanPurposeSummary
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -327,7 +327,7 @@ This creates buckets such as:
 You can adjust buckets as needed.
 
 ```sql
-CREATE OR ALTER PROCEDURE sp_CreditScoreSummary
+CREATE   PROCEDURE sp_CreditScoreSummary
 AS
 BEGIN
     SET NOCOUNT ON;
@@ -373,7 +373,7 @@ END;
 Returns counts of each home ownership category.
 
 ```sql
-CREATE OR ALTER PROCEDURE sp_HomeOwnershipSummary
+CREATE   PROCEDURE sp_HomeOwnershipSummary
 AS
 BEGIN
     SET NOCOUNT ON;
