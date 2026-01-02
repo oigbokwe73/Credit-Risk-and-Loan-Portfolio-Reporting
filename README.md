@@ -1,9 +1,4 @@
-# Credit-Risk-and-Loan-Portfolio-Reporting
 
-Here’s a **complete, polished use case** for reporting based on the uploaded **credit_test.csv** file.
-(I’ve already loaded and examined the dataset — it contains ~ loan, customer, income, credit score, home ownership, job history, and delinquency-related fields.)
-
----
 
 # **Use Case: Credit Risk & Loan Portfolio Reporting**
 
