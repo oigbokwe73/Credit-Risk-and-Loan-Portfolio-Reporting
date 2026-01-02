@@ -400,18 +400,6 @@ END;
 
 ---
 
-Below is the exact **CREATE TABLE** statement using **NVARCHAR(100)** for *every listed column*, exactly as requested.
-
----
 
 
----
-
-# ⚙️ Notes
-
-* Every column is **NVARCHAR(100)** as requested ( no numeric, no GUID, no decimal types ).
-* This makes CSV imports simple and avoids type conflicts.
-* If needed later, we can add a **typed staging table** or **computed columns** for reporting.
-
----
 
