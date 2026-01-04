@@ -259,14 +259,13 @@ CREATE TABLE dbo.CreditApplication
 Returns total dollar amount of loans grouped by **Short Term** and **Long Term**.
 
 ```sql
-CREATE OR ALTER PROCEDURE sp_LoanTermSummary
+CREATE   PROCEDURE sp_LoanTermSummary
 AS
 BEGIN
     SET NOCOUNT ON;
-
     SELECT 
         Term AS LoanTerm,
-        SUM(CurrentLoanAmount) AS TotalLoanAmount
+         SUM(CAST(CurrentLoanAmount as bigint)) AS TotalLoanAmount
     FROM CreditApplication
     GROUP BY Term
     ORDER BY TotalLoanAmount DESC;
